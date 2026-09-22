@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#153E7E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Home Strength Tracker</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <header>
@@ -16,7 +19,6 @@
     </div>
     <button id="resetBtn" class="iconBtn" title="Reset all local data">↻</button>
   </header>
-
   <main>
     <section class="stats">
       <div class="stat"><strong id="workoutsDone">0</strong><span>workouts</span></div>
@@ -24,46 +26,25 @@
       <div class="stat"><strong id="currentStreak">0</strong><span>day streak</span></div>
       <div class="stat"><strong id="totalSets">0</strong><span>sets logged</span></div>
     </section>
-
     <nav class="tabs">
       <button class="tab active" data-tab="today">Today</button>
       <button class="tab" data-tab="plan">Plan</button>
       <button class="tab" data-tab="progress">Progress</button>
       <button class="tab" data-tab="photos">Photos</button>
     </nav>
-
     <section id="today" class="panel active">
-      <div class="sectionHead">
-        <div>
-          <h2 id="todayTitle">Today</h2>
-          <p id="todaySubtitle"></p>
-        </div>
-        <span id="dayBadge" class="badge"></span>
-      </div>
-
+      <div class="sectionHead"><div><h2 id="todayTitle">Today</h2><p id="todaySubtitle"></p></div><span id="dayBadge" class="badge"></span></div>
       <div id="todayContent"></div>
     </section>
-
     <section id="plan" class="panel">
-      <div class="sectionHead">
-        <div>
-          <h2>Weekly Blueprint</h2>
-          <p>Follow the plan. Progress the reps over time.</p>
-        </div>
-      </div>
+      <div class="sectionHead"><div><h2>Weekly Blueprint</h2><p>Follow the plan. Progress the reps over time.</p></div></div>
       <div id="planContent"></div>
     </section>
-
     <section id="progress" class="panel">
-      <div class="sectionHead">
-        <div>
-          <h2>Progress</h2>
-          <p>Keep your baseline and watch the numbers move.</p>
-        </div>
-      </div>
-
+      <div class="sectionHead"><div><h2>Progress</h2><p>Keep your baseline and watch the numbers move.</p></div></div>
       <div class="card">
         <h3>Baseline / monthly check</h3>
+        <p class="small">Record these about every 4 weeks. For max push-ups, stop at the first rep where form breaks down.</p>
         <div class="grid2">
           <label>Weight (kg)<input id="weightInput" type="number" step="0.1" inputmode="decimal"></label>
           <label>Waist (cm)<input id="waistInput" type="number" step="0.1" inputmode="decimal"></label>
@@ -74,19 +55,19 @@
         </div>
         <button id="saveBaseline" class="primary">Save check-in</button>
       </div>
-
+      <div class="card">
+        <h3>Backup</h3>
+        <p class="small">Export your tracker data regularly so browser storage is never your only copy.</p>
+        <button id="exportData" class="primary">Export JSON backup</button>
+        <button id="importData" class="secondary">Import JSON backup</button>
+        <input id="importFile" type="file" accept=".json,application/json" hidden>
+      </div>
       <div id="history"></div>
     </section>
-
     <section id="photos" class="panel">
-      <div class="sectionHead">
-        <div>
-          <h2>Progress Photos</h2>
-          <p>Take them under similar lighting every 4 weeks.</p>
-        </div>
-      </div>
+      <div class="sectionHead"><div><h2>Progress Photos</h2><p>Take them under similar lighting every 4 weeks.</p></div></div>
       <div class="card">
-        <p class="small">The app does not upload your photos. Put copies in the <code>photos/</code> folder if you want them stored with this project. The filenames can be recorded below.</p>
+        <p class="small">The app does not upload your photos. Keep copies in the <code>photos/</code> folder if you want them bundled with the project.</p>
         <label>Photo date<input id="photoDate" type="date"></label>
         <label>Photo filename<input id="photoFilename" placeholder="e.g. 2026-10-20-front.jpg"></label>
         <button id="savePhoto" class="primary">Add photo record</button>
@@ -94,20 +75,13 @@
       <div id="photoList"></div>
     </section>
   </main>
-
   <template id="exerciseTemplate">
     <article class="exercise">
-      <div class="exerciseTop">
-        <div>
-          <h3 class="exerciseName"></h3>
-          <p class="exerciseNote"></p>
-        </div>
-        <span class="target"></span>
-      </div>
+      <div class="exerciseTop"><div><h3 class="exerciseName"></h3><p class="exerciseNote"></p></div><span class="target"></span></div>
       <div class="sets"></div>
     </article>
   </template>
-
   <script src="app.js"></script>
+  <script>if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});</script>
 </body>
 </html>
