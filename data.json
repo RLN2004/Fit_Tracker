@@ -1,0 +1,6 @@
+{
+  "logs": {},
+  "checkins": [],
+  "photos": [],
+  "_note": "The browser app stores live data in localStorage. This file is a blank export/template and is included so the project has a simple JSON data structure."
+}
